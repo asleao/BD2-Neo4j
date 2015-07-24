@@ -1,12 +1,16 @@
-Hello Worlds
+Bem vindo!
 ============
 
-A simple Spring Data Neo4j example with just enough code to do something that works.
+O repositório contém testes de inserção realizados no Neo4j, utilizando o framework Spring Data.
 
-See https://github.com/SpringSource/spring-data-neo4j/blob/master/spring-data-neo4j-examples/hello-worlds/src/test/java/org/springframework/data/neo4j/examples/hellograph/GalaxyServiceTest.java for example code.
+Clone o projeto e importe-o pelo pom.xml
 
-Build and Run
--------------
+Não é necessário instalar nada além de:
+* Java >= 7
+* Maven >= 2
 
-`mvn clean test`
 
+##### Para executar os testes, rode o comando:
+ ```sh
+  mvn clean test
+ ```
