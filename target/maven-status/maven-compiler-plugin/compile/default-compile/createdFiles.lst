@@ -1,0 +1,16 @@
+sr/ifes/edu/br/bd2/repositories/FilmeRepository.class
+sr/ifes/edu/br/bd2/CategoriaService.class
+sr/ifes/edu/br/bd2/LocacaoService.class
+sr/ifes/edu/br/bd2/repositories/ClienteRepository.class
+sr/ifes/edu/br/bd2/domain/LocacaoFilmeRelationship.class
+sr/ifes/edu/br/bd2/domain/Categoria.class
+sr/ifes/edu/br/bd2/domain/Cliente.class
+sr/ifes/edu/br/bd2/repositories/LocacaoRepository.class
+sr/ifes/edu/br/bd2/repositories/CategoriaRepository.class
+sr/ifes/edu/br/bd2/domain/Filme.class
+sr/ifes/edu/br/bd2/domain/LocacaoClienteRelationship.class
+sr/ifes/edu/br/bd2/FilmeService.class
+sr/ifes/edu/br/bd2/domain/FilmeCategoriaRelationship.class
+sr/ifes/edu/br/bd2/domain/Sexo.class
+sr/ifes/edu/br/bd2/ClienteService.class
+sr/ifes/edu/br/bd2/domain/Locacao.class
