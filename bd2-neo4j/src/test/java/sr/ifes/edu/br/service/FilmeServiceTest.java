@@ -1,5 +1,6 @@
 package sr.ifes.edu.br.service;
 
+import java.util.Date;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,16 +13,17 @@ import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.*;
-import sr.ifes.edu.br.bd2.CategoriaService;
+import sr.ifes.edu.br.bd2.FilmeService;
 import sr.ifes.edu.br.bd2.domain.Categoria;
+import sr.ifes.edu.br.bd2.domain.Filme;
 
 @ContextConfiguration(locations = "classpath:/spring/application-context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class CategoriaServiceTest {
+public class FilmeServiceTest {
 
 	@Autowired
-	private CategoriaService categoriaService;
+	private FilmeService filmeService;
 	
 	@Autowired
 	private Neo4jTemplate template;
@@ -35,29 +37,35 @@ public class CategoriaServiceTest {
 	@Test
         public void shouldHaveZeroRecords(){
             cleanUpGraph();
-            long records = categoriaService.getQuantidadeCategorias();
+            long records = filmeService.getQuantidadeFilmes();
             assertNotNull(records);
             assertEquals(records, 0);
         }
         
         @Test
         public void shouldHaveAtLeastOneRecord(){
-            Categoria c = new Categoria();
-            c.setDescricao("Categoria de Teste");
-            c.setPreco(2.3);
-            categoriaService.criar(c);
-            long records = categoriaService.getQuantidadeCategorias();
+            Filme f = new Filme();
+            f.setDataCompra(new Date());
+            f.setNome("Divertidamente");
+            f.setPreco(21.0);
+            Categoria c = new Categoria(null, "Animação", 8.0);
+            f.setCategoria(c);
+            filmeService.criar(f);
+            long records = filmeService.getQuantidadeFilmes();
             assertNotNull(records);
             assertTrue(records > 0);
         }
         
         @Test
         public void shouldFindLastInsertion(){
-            Categoria c = new Categoria();
-            c.setDescricao("Categoria de Teste de Insercao");
-            c.setPreco(200.0);
-            Categoria actual = categoriaService.criar(c);
-            assertNotNull(actual);
+            Filme f = new Filme();
+            f.setDataCompra(new Date());
+            f.setNome("Divertidamente");
+            f.setPreco(21.0);
+            Categoria c = new Categoria(null, "Animação", 8.0);
+            f.setCategoria(c);
+            Filme expected = filmeService.criar(f);
+            assertNotNull(expected);
         }
 	
 }

@@ -1,5 +1,6 @@
 package sr.ifes.edu.br.service;
 
+import java.util.Date;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,52 +13,56 @@ import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.*;
-import sr.ifes.edu.br.bd2.CategoriaService;
-import sr.ifes.edu.br.bd2.domain.Categoria;
+import org.junit.Before;
+import sr.ifes.edu.br.bd2.ClienteService;
+import sr.ifes.edu.br.bd2.domain.Cliente;
+import sr.ifes.edu.br.bd2.domain.Sexo;
 
 @ContextConfiguration(locations = "classpath:/spring/application-context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class CategoriaServiceTest {
+public class ClienteServiceTest {
 
 	@Autowired
-	private CategoriaService categoriaService;
+	private ClienteService clienteService;
 	
 	@Autowired
 	private Neo4jTemplate template;
 	
 	@Rollback(false)
 	@BeforeTransaction
+        @Before
 	public void cleanUpGraph() {
             Neo4jHelper.cleanDb(template);
 	}
-	
+        
 	@Test
         public void shouldHaveZeroRecords(){
-            cleanUpGraph();
-            long records = categoriaService.getQuantidadeCategorias();
+            long records = clienteService.getQuantidadeClientes();
             assertNotNull(records);
             assertEquals(records, 0);
         }
         
         @Test
         public void shouldHaveAtLeastOneRecord(){
-            Categoria c = new Categoria();
-            c.setDescricao("Categoria de Teste");
-            c.setPreco(2.3);
-            categoriaService.criar(c);
-            long records = categoriaService.getQuantidadeCategorias();
+            Cliente c = new Cliente();
+            c.setDataNascimento(new Date());
+            c.setNome("Moisés Omena");
+            c.setSexo(Sexo.MASCULINO);
+            clienteService.criar(c);
+            long records = clienteService.getQuantidadeClientes();
             assertNotNull(records);
             assertTrue(records > 0);
         }
         
         @Test
         public void shouldFindLastInsertion(){
-            Categoria c = new Categoria();
-            c.setDescricao("Categoria de Teste de Insercao");
-            c.setPreco(200.0);
-            Categoria actual = categoriaService.criar(c);
-            assertNotNull(actual);
+            Cliente c = new Cliente();
+            c.setDataNascimento(new Date());
+            c.setNome("Moisés Omena");
+            c.setSexo(Sexo.MASCULINO);
+            Cliente expected = clienteService.criar(c);
+            assertNotNull(expected);
         }
 	
 }

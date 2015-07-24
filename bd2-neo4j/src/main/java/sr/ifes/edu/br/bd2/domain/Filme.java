@@ -35,4 +35,10 @@ public class Filme {
     
     @Fetch @RelatedTo(type = "FILME_CATEGORIA")
     private Categoria categoria;
+
+    @Override
+    public String toString() {
+        return "Filme{" + "id:" + id + ", nome:" + nome + ", dataCompra:" + dataCompra + ", preco:" + preco + ", categoria:" + categoria + '}';
+    }
+    
 }

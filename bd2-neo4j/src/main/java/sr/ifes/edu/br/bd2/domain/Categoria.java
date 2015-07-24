@@ -28,4 +28,9 @@ public class Categoria {
     
     private String descricao;
     private Double preco;
+
+    @Override
+    public String toString() {
+        return "Categoria{" + "id:" + id + ", descricao:" + descricao + ", preco:" + preco + '}';
+    }
 }

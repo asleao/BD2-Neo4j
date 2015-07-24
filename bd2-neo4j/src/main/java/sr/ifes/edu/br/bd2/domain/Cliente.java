@@ -26,8 +26,6 @@ import org.springframework.data.neo4j.annotation.NodeEntity;
 @NoArgsConstructor
 @Data
 @NodeEntity
-@ToString
-
 public class Cliente {
     
     @GraphId
@@ -36,4 +34,9 @@ public class Cliente {
     private String nome;
     private Date dataNascimento;
     private Sexo sexo;
+    
+    @Override
+    public String toString() {
+        return "Cliente{" + "id:" + id + ", nome:" + nome + ", dataNascimento:" + dataNascimento + ", sexo:" + sexo + '}';
+    }
 }
