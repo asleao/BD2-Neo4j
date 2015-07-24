@@ -1,7 +1,7 @@
 lib
 .ivy
 .gradle
-target
+target/*
 *.ipr
 *.iml
 *.iws
