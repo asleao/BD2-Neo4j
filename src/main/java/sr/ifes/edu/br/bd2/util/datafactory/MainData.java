@@ -6,6 +6,10 @@
 package sr.ifes.edu.br.bd2.util.datafactory;
 
 import org.fluttercode.datafactory.impl.DataFactory;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 /**
  *
@@ -14,11 +18,21 @@ import org.fluttercode.datafactory.impl.DataFactory;
 public class MainData {
  
     public static void main(String args[]){
+        
+         ApplicationContext context = new FileSystemXmlApplicationContext(
+                "src/main/resources/spring/application-context.xml");
+
+        BeanFactory factory = context;
+        
         DataFactory df = new DataFactory();
-        CategoriaData cat = new CategoriaData();
-        ClienteData cli = new ClienteData();
-        FilmeData fil = new FilmeData();
-        LocacaoData loc = new LocacaoData();
+        df.randomize((int) System.currentTimeMillis());
+        
+        
+        
+        CategoriaData cat = (CategoriaData) factory.getBean("categoriaData");
+        ClienteData cli = (ClienteData) factory.getBean("clienteData");
+        FilmeData fil = (FilmeData) factory.getBean("filmeData");
+        LocacaoData loc = (LocacaoData) factory.getBean("locacaoData");
         
         cat.criarCategoriaRandom(df,5);
         cli.criarClienteRandom(df, 5);

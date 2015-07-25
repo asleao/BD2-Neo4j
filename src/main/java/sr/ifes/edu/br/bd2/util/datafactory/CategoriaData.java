@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import sr.ifes.edu.br.bd2.domain.Categoria;
 import sr.ifes.edu.br.bd2.repositories.CategoriaRepository;
 
@@ -16,6 +17,7 @@ import sr.ifes.edu.br.bd2.repositories.CategoriaRepository;
  *
  * @author dred
  */
+@Service
 public class CategoriaData {
     
     @Autowired
@@ -45,7 +47,7 @@ public class CategoriaData {
         }
     }
     
-    private List<String> getCategorias(){
+    public List<String> getCategorias(){
         List<String> listaCategorias = new ArrayList();
         
         listaCategorias.add("Terror");

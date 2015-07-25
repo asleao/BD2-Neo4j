@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import sr.ifes.edu.br.bd2.domain.Cliente;
 import sr.ifes.edu.br.bd2.domain.Sexo;
 import sr.ifes.edu.br.bd2.repositories.ClienteRepository;
@@ -17,6 +18,7 @@ import sr.ifes.edu.br.bd2.repositories.ClienteRepository;
  *
  * @author dred
  */
+@Service
 public class ClienteData {
     
     @Autowired

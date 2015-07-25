@@ -8,6 +8,7 @@ package sr.ifes.edu.br.bd2.util.datafactory;
 import java.util.List;
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import sr.ifes.edu.br.bd2.domain.Categoria;
 import sr.ifes.edu.br.bd2.domain.Filme;
 import sr.ifes.edu.br.bd2.repositories.CategoriaRepository;
@@ -17,6 +18,7 @@ import sr.ifes.edu.br.bd2.repositories.FilmeRepository;
  *
  * @author dred
  */
+@Service
 public class FilmeData {
     @Autowired
     private FilmeRepository filmeRepository;
@@ -31,6 +33,7 @@ public class FilmeData {
     
     public Filme criarFilme(DataFactory df){
         Filme filme = new Filme();
+        CategoriaData categoriaData = new CategoriaData();
         
         filme.setNome("Filme "+df.getRandomWord());
         filme.setPreco(new Double(df.getNumberBetween(2, 70)));
@@ -46,5 +49,7 @@ public class FilmeData {
             e.printStackTrace();
         }
     }
+    
+    
 }
 

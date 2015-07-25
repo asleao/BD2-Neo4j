@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import sr.ifes.edu.br.bd2.domain.Cliente;
 import sr.ifes.edu.br.bd2.domain.Filme;
 import sr.ifes.edu.br.bd2.domain.Locacao;
@@ -20,6 +21,7 @@ import sr.ifes.edu.br.bd2.repositories.LocacaoRepository;
  *
  * @author dred
  */
+@Service
 public class LocacaoData {
     @Autowired
     private LocacaoRepository locacaoRepository;
