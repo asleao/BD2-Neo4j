@@ -13,6 +13,7 @@ import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.*;
+import org.junit.Before;
 import sr.ifes.edu.br.bd2.FilmeService;
 import sr.ifes.edu.br.bd2.domain.Categoria;
 import sr.ifes.edu.br.bd2.domain.Filme;
@@ -30,6 +31,7 @@ public class FilmeServiceTest {
 	
 	@Rollback(false)
 	@BeforeTransaction
+        @Before
 	public void cleanUpGraph() {
             Neo4jHelper.cleanDb(template);
 	}
