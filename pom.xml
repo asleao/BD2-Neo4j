@@ -26,7 +26,14 @@
 		</repository>
 	</repositories>
 
-	<dependencies>
+	<dependencies>        
+        <!--DataFactory-->   
+        <dependency>
+            <groupId>org.fluttercode.datafactory</groupId>
+            <artifactId>datafactory</artifactId>
+            <version>0.8</version>
+            <type>jar</type>
+        </dependency>    
         <!--            Project Lombok-->
         <dependency>
             <groupId>org.projectlombok</groupId>
