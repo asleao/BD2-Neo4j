@@ -23,32 +23,26 @@ import sr.ifes.edu.br.bd2.repositories.LocacaoRepository;
  */
 @Service
 public class LocacaoData {
+       
     @Autowired
-    private LocacaoRepository locacaoRepository;
+    private ClienteData clienteData;
+    
     @Autowired
-    private ClienteRepository clienteRepository;
-    @Autowired
-    private FilmeRepository filmeRepository;
+    private FilmeData filmeData;
     
-    
-    public void criarLocacaoRandom(DataFactory df, int qtdLoc){
-        for (int i = 0; i < qtdLoc; i++) {
-            salvarLocacao(criarLocacao(df));
-        }
-    }
-    
-    public Locacao criarLocacao(DataFactory df){
+    public Locacao build(DataFactory df){
+        
         Locacao locacao = new Locacao();
-        Date dataDevolucao = new Date();
         
-        int diasAmais = df.getNumberBetween(5, 15);
-        
-        locacao.setCliente(df.getItem((List<Cliente>)clienteRepository.findAll()));
-        locacao.setFilme(df.getItem((List<Filme>)filmeRepository.findAll()));
         locacao.setDataLocacao(df.getDateBetween(df.getDate(1960, 1, 1),
                                               df.getDate(2015, 8, 1)));
+        Date dataDevolucao = new Date();
+        int diasAmais = df.getNumberBetween(5, 15);
         dataDevolucao.setDate(locacao.getDataLocacao().getDate()+ diasAmais);
         locacao.setDataDevolucao(dataDevolucao);
+        
+        locacao.setCliente(clienteData.build(df));
+        locacao.setFilme(filmeData.build(df));
         
         if(diasAmais > 5){
             locacao.setMulta(new Double(((diasAmais-5)*2)));
@@ -56,12 +50,4 @@ public class LocacaoData {
         
         return locacao;
     }
-    
-    public void salvarLocacao(Locacao locacao){
-        try {
-            locacaoRepository.save(locacao);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    } 
 }

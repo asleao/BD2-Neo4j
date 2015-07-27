@@ -20,31 +20,13 @@ import sr.ifes.edu.br.bd2.repositories.CategoriaRepository;
 @Service
 public class CategoriaData {
     
-    @Autowired
-    private CategoriaRepository categoriaRepository;
-    
-    public void criarCategoriaRandom(DataFactory df,int qtdCat){
-        for (int i = 0; i < qtdCat; i++) {
-            salvarCategoria(criarCategoria(df));
-        }
-    }
-    
     public Categoria criarCategoria(DataFactory df){
         Categoria categoria = new Categoria();
-        
         
         categoria.setDescricao(df.getItem(getCategorias()));
         categoria.setPreco(new Double(df.getNumberBetween(1, 50)));        
         
         return categoria;
-    }
-    
-    public void salvarCategoria(Categoria categoria){
-        try {
-            categoriaRepository.save(categoria);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
     
     public List<String> getCategorias(){

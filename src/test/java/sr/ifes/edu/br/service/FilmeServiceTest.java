@@ -1,6 +1,8 @@
 package sr.ifes.edu.br.service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,17 +16,24 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.*;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
+import org.junit.runners.MethodSorters;
 import sr.ifes.edu.br.bd2.FilmeService;
 import sr.ifes.edu.br.bd2.domain.Categoria;
 import sr.ifes.edu.br.bd2.domain.Filme;
+import sr.ifes.edu.br.bd2.util.datafactory.FilmeData;
 
 @ContextConfiguration(locations = "classpath:/spring/application-context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class FilmeServiceTest {
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class FilmeServiceTest extends AbstractionTest{
 
 	@Autowired
 	private FilmeService filmeService;
+        
+        @Autowired
+        private FilmeData filmeData;
 	
 	@Autowired
 	private Neo4jTemplate template;
@@ -36,8 +45,12 @@ public class FilmeServiceTest {
             Neo4jHelper.cleanDb(template);
 	}
 	
+        /**
+         * Esse nome é uma gambiarra necessária para estabelecer uma ordem na execução dos testes
+         * Já que o setUp do banco demora um pouco, o tempo do teste é alterado.
+         */
 	@Test
-        public void shouldHaveZeroRecords(){
+        public void aaa1TheFirstTest(){
             cleanUpGraph();
             long records = filmeService.getQuantidadeFilmes();
             assertNotNull(records);
@@ -68,6 +81,18 @@ public class FilmeServiceTest {
             f.setCategoria(c);
             Filme expected = filmeService.criar(f);
             assertNotNull(expected);
+        }
+        
+        @Test
+        public void shouldInsertTenThousandFilms(){
+            int qtd = 10000;
+            List<Filme> expected = new ArrayList<>();
+            for (int i = 0; i < qtd; i++) {
+                expected.add(filmeService.criar(filmeData.build(df)));
+            }
+            
+            assertNotNull(expected);
+            assertEquals(expected.size(), qtd);
         }
 	
 }

@@ -1,6 +1,8 @@
 package sr.ifes.edu.br.service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.*;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
+import org.junit.runners.MethodSorters;
 import sr.ifes.edu.br.bd2.CategoriaService;
 import sr.ifes.edu.br.bd2.ClienteService;
 import sr.ifes.edu.br.bd2.FilmeService;
@@ -23,11 +27,13 @@ import sr.ifes.edu.br.bd2.domain.Cliente;
 import sr.ifes.edu.br.bd2.domain.Filme;
 import sr.ifes.edu.br.bd2.domain.Locacao;
 import sr.ifes.edu.br.bd2.domain.Sexo;
+import sr.ifes.edu.br.bd2.util.datafactory.LocacaoData;
 
 @ContextConfiguration(locations = "classpath:/spring/application-context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class LocacaoServiceTest {
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class LocacaoServiceTest extends AbstractionTest{
 
 	@Autowired
 	private LocacaoService locacaoService;
@@ -40,6 +46,9 @@ public class LocacaoServiceTest {
         
         @Autowired
         private CategoriaService categoriaService;
+        
+        @Autowired
+        private LocacaoData locacaoData;
 	
 	@Autowired
 	private Neo4jTemplate template;
@@ -50,6 +59,18 @@ public class LocacaoServiceTest {
 	public void cleanUpGraph() {
             Neo4jHelper.cleanDb(template);
 	}
+        
+        /**
+         * Esse nome é uma gambiarra necessária para estabelecer uma ordem na execução dos testes
+         * Já que o setUp do banco demora um pouco, o tempo do teste é alterado.
+         */
+	@Test
+        public void aaa1TheFirstTest(){
+            cleanUpGraph();
+            long records = filmeService.getQuantidadeFilmes();
+            assertNotNull(records);
+            assertEquals(records, 0);
+        }
         
         private Cliente criaCliente(){
             Cliente c = new Cliente();
@@ -100,6 +121,18 @@ public class LocacaoServiceTest {
         public void shouldFindLastInsertion(){
             Locacao expected = criaLocacao();
             assertNotNull(expected);
+        }
+        
+        @Test
+        public void shouldInsertHundredThousandRented(){
+            int qtd = 100000;
+            List<Locacao> expected = new ArrayList<>();
+            for (int i = 0; i < qtd; i++) {
+                expected.add(locacaoService.criar(locacaoData.build(df)));
+            }
+            
+            assertNotNull(expected);
+            assertEquals(expected.size(), qtd);
         }
 	
 }

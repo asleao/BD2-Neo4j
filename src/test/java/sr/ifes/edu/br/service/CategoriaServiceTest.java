@@ -1,5 +1,7 @@
 package sr.ifes.edu.br.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +17,18 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import sr.ifes.edu.br.bd2.CategoriaService;
 import sr.ifes.edu.br.bd2.domain.Categoria;
+import sr.ifes.edu.br.bd2.util.datafactory.CategoriaData;
 
 @ContextConfiguration(locations = "classpath:/spring/application-context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class CategoriaServiceTest {
+public class CategoriaServiceTest extends AbstractionTest{
 
 	@Autowired
 	private CategoriaService categoriaService;
+        
+        @Autowired
+        private CategoriaData categoriaData;
 	
 	@Autowired
 	private Neo4jTemplate template;
@@ -60,6 +66,20 @@ public class CategoriaServiceTest {
             c.setPreco(200.0);
             Categoria actual = categoriaService.criar(c);
             assertNotNull(actual);
+        }
+        
+        @Test
+        public void shouldInsertTenCategories(){
+            
+            int qtd = 10;
+            List<Categoria> expected = new ArrayList<>();
+            
+            for (int i = 0; i < qtd; i++) {
+                expected.add(categoriaService.criar(categoriaData.criarCategoria(df)));
+            }
+            
+            assertNotNull(expected);
+            assertEquals(expected.size(), qtd);
         }
 	
 }
