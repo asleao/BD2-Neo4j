@@ -126,13 +126,16 @@ public class LocacaoServiceTest extends AbstractionTest{
         @Test
         public void shouldInsertHundredThousandRented(){
             int qtd = 100000;
-            List<Locacao> expected = new ArrayList<>();
+            Locacao l;
+            int expected = 0;
             for (int i = 0; i < qtd; i++) {
-                expected.add(locacaoService.criar(locacaoData.build(df)));
+                l = locacaoService.criar(locacaoData.build(df));
+                if(l != null){
+                    expected++;
+                }
             }
             
-            assertNotNull(expected);
-            assertEquals(expected.size(), qtd);
+            assertEquals(expected, qtd);
         }
 	
 }
