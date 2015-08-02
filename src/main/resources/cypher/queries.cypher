@@ -28,3 +28,15 @@ WITH DISTINCT sCat, sF, sCla
 MATCH (c:Cliente)-[l:ALUGA]->(sF)
 WHERE c.sexo = "1"
 RETURN c, l, sF, sCla, sCat;
+
+//Custom 1
+
+MATCH (c:Cliente)-[r:ALUGA]->(f:Filme)-[cla:CLASSIFICADO]->(cat:Categoria) WHERE cat.descricao =~ ".*a.*"
+WITH DISTINCT c
+MATCH (c)-[r:ALUGA]-(f:Filme)
+RETURN c;
+
+//Custom 2
+
+MATCH (c:Cliente)-[l:ALUGA]->(f:Filme)-[cla:CLASSIFICADO]->(cat:Categoria)
+RETURN cat.descricao
